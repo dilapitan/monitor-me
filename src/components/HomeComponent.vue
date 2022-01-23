@@ -10,9 +10,13 @@
             v-model="status"
             placeholder="What are you feeling?"
             max-height="30"
-            auto-grow
+            clearable
+            no-resize
           ></v-textarea>
         </v-row>
+        <p class="text-caption primary--text">
+          Note: Time and Date are automatically included.
+        </p>
         <br />
         <v-row>
           <v-spacer> </v-spacer>
