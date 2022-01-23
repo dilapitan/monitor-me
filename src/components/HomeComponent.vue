@@ -57,7 +57,7 @@ export default {
 
   watch: {
     status: function () {
-      this.emptyStatus = this.status.length > 0 ? false : true
+      this.emptyStatus = this.status?.length > 0 ? false : true
     }
   },
 
