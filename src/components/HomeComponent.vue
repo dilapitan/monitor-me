@@ -24,12 +24,26 @@
 
       <v-col cols="2" sm="3"></v-col>
     </v-row>
+
+    <v-row>
+      <v-col sm="3"></v-col>
+      <v-col sm="6">
+        <CalendarComponent />
+      </v-col>
+      <v-col sm="3"></v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
+import CalendarComponent from '@/components/CalendarComponent'
+
 export default {
   name: 'Home',
+
+  components: {
+    CalendarComponent
+  },
 
   data: () => ({
     emptyStatus: true,
