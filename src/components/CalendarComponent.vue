@@ -1,9 +1,11 @@
 <template>
   <div class="text-center section">
     <vc-calendar
+      :masks="masks"
       :attributes="attributes"
       :value="null"
       color="green"
+      is-expanded
       is-range
     />
   </div>
@@ -27,9 +29,9 @@ export default {
         {
           key: 1,
           dates: new Date(year, month, 24),
-          dot: {
-            color: 'blue'
-            // fillMode: 'light'
+          highlight: {
+            color: 'green',
+            fillMode: 'outline'
           },
           popover: {
             label: 'Water Plants',
@@ -39,9 +41,9 @@ export default {
         {
           key: 2,
           dates: new Date(year, month, 24),
-          dot: {
-            color: 'blue'
-            // fillMode: 'light'
+          highlight: {
+            color: 'green',
+            fillMode: 'outline'
           },
           popover: {
             label: 'Read 30 pages',
