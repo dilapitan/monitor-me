@@ -68,6 +68,7 @@ export default {
         time: Date.now()
       }
       this.statuses.push(status)
+      this.status = ''
       console.log('this.statuses:', this.statuses)
     }
   }
