@@ -119,6 +119,31 @@ export default {
   },
 
   methods: {
+    addTimeToDateFormat(date) {
+      // i.e. 7:45 am
+      return format(date, "hh:mm aaaaa'm'")
+    },
+
+    getDatesOnly: function () {
+      /**
+       * This is to create an array of dates with no duplicates.
+       *
+       * This is where the statuses array will be compared to for adding
+       * the same-date feelings under each date.
+      */
+      const datesOnly = []
+      this.statuses.forEach((status) => {
+        if (!datesOnly.includes(format(status.date, 'MMMM d, yyyy, EEEE')))
+          datesOnly.push(format(status.date, 'MMMM d, yyyy, EEEE'))
+      })
+      this.datesOnly = datesOnly
+    },
+
+    standardizeDateFormat(date) {
+      // i.e. November 16, 2021, Thursday
+      return format(date, 'MMMM d, yyyy, EEEE')
+    },
+
     storeStatus: function () {
       // const date = new Date()
 
@@ -139,31 +164,6 @@ export default {
       // loading UI finish
 
     },
-
-    standardizeDateFormat(date) {
-      // i.e. November 16, 2021, Thursday
-      return format(date, 'MMMM d, yyyy, EEEE')
-    },
-
-    addTimeToDateFormat(date) {
-      // i.e. 7:45 am
-      return format(date, "hh:mm aaaaa'm'")
-    },
-
-    getDatesOnly: function () {
-      /**
-       * This is to create an array of dates with no duplicates.
-       *
-       * This is where the statuses array will be compared to for adding
-       * the same-date feelings under each date.
-      */
-      const datesOnly = []
-      this.statuses.forEach((status) => {
-        if (!datesOnly.includes(format(status.date, 'MMMM d, yyyy, EEEE')))
-          datesOnly.push(format(status.date, 'MMMM d, yyyy, EEEE'))
-      })
-      this.datesOnly = datesOnly
-    }
   }
 }
 </script>
