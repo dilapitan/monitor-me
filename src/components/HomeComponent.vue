@@ -29,21 +29,36 @@
       <v-col cols="2" sm="3"></v-col>
     </v-row>
 
+    <br>
+
     <v-row>
       <v-col sm="3"></v-col>
       <v-col sm="6">
         <div>
-          <h5>List of Statues</h5>
-          <p v-for="(date, index) in datesOnly" :key="index">
-            {{ date }}
-            <ul v-for="(status, index) in statuses" :key="index">
-              <li v-if="standardizeDateFormat(status.date) === date">
-                {{ addTimeToDateFormat(status.date) }} {{ status.feeling }}
-              </li>
-            </ul>
-          </p>
-        </div></v-col
-      >
+          <h4 class="text-overline">
+            <v-icon>
+              mdi-file-sign
+            </v-icon>
+            List of Statuses
+          </h4>
+
+          <v-container style="height: 300px;" class="overflow-y-auto">
+            <p v-for="(date, index) in datesOnly" :key="index">
+              <span class="text-overline primary--text font-weight-bold">{{ date }}</span>
+              <ul v-for="(status, index) in statuses" :key="index">
+                <li v-if="standardizeDateFormat(status.date) === date" class="text-body1">
+                  <span class="text-body2">
+                    {{ addTimeToDateFormat(status.date) }} {{ status.feeling }}
+                  </span>
+                </li>
+              </ul>
+
+              <br>
+              <v-divider></v-divider>
+            </p>
+          </v-container>
+        </div>
+      </v-col>
       <v-col sm="3"></v-col>
     </v-row>
 
@@ -69,6 +84,48 @@ export default {
   },
 
   data: () => ({
+    items: [
+      {
+        action: 'mdi-ticket',
+        items: [{ title: 'List Item' }],
+        title: 'Attractions'
+      },
+      {
+        action: 'mdi-silverware-fork-knife',
+        active: true,
+        items: [
+          { title: 'Breakfast & brunch' },
+          { title: 'New American' },
+          { title: 'Sushi' }
+        ],
+        title: 'Dining'
+      },
+      {
+        action: 'mdi-school',
+        items: [{ title: 'List Item' }],
+        title: 'Education'
+      },
+      {
+        action: 'mdi-human-male-female-child',
+        items: [{ title: 'List Item' }],
+        title: 'Family'
+      },
+      {
+        action: 'mdi-bottle-tonic-plus',
+        items: [{ title: 'List Item' }],
+        title: 'Health'
+      },
+      {
+        action: 'mdi-briefcase',
+        items: [{ title: 'List Item' }],
+        title: 'Office'
+      },
+      {
+        action: 'mdi-tag',
+        items: [{ title: 'List Item' }],
+        title: 'Promotions'
+      }
+    ],
     emptyStatus: true,
     status: '',
     statuses: [
@@ -130,7 +187,7 @@ export default {
        *
        * This is where the statuses array will be compared to for adding
        * the same-date feelings under each date.
-      */
+       */
       const datesOnly = []
       this.statuses.forEach((status) => {
         if (!datesOnly.includes(format(status.date, 'MMMM d, yyyy, EEEE')))
@@ -146,7 +203,6 @@ export default {
 
     storeStatus: function () {
       // const date = new Date()
-
       // const status = {
       //   feeling: this.status,
       //   date: date,
@@ -156,14 +212,12 @@ export default {
       // this.statuses.push(status)
       // this.status = ''
       // console.log('this.statuses:', this.statuses)
-
       // loading UI begin
       // push
       // sort
       // update
       // loading UI finish
-
-    },
+    }
   }
 }
 </script>
