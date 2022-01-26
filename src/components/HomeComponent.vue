@@ -7,17 +7,15 @@
           :label="feelingToday ? `Today's Feeling` : `Feelings in the past days`">
         </v-switch>
 
-        <v-row>
+        <v-row class="pl-4">
           <v-text-field
             v-model="status"
             placeholder="What are you feeling?"
             clearable
+            hint="Note: Time and Date are automatically included."
           ></v-text-field>
         </v-row>
 
-        <p class="text-caption primary--text">
-          Note: Time and Date are automatically included.
-        </p>
 
         <v-row>
           <v-spacer> </v-spacer>
