@@ -1,18 +1,15 @@
 <template>
   <v-container>
+    <br>
     <v-row>
-      <v-col cols="2" sm="3"></v-col>
-
-      <v-col cols="8" sm="6">
-        <br /><br /><br />
+      <v-col sm="5">
+        <br />
         <v-row>
-          <v-textarea
+          <v-text-field
             v-model="status"
             placeholder="What are you feeling?"
-            max-height="30"
             clearable
-            no-resize
-          ></v-textarea>
+          ></v-text-field>
         </v-row>
         <p class="text-caption primary--text">
           Note: Time and Date are automatically included.
@@ -20,54 +17,49 @@
         <br />
         <v-row>
           <v-spacer> </v-spacer>
-          <v-btn :disabled="emptyStatus" color="primary" @click="storeStatus()">
+          <v-btn :disabled="emptyStatus" color="primary" small @click="storeStatus()">
             Enter
           </v-btn>
         </v-row>
       </v-col>
 
-      <v-col cols="2" sm="3"></v-col>
+      <!-- <v-col sm="3">
+        <br /><br /><br />
+        <CalendarComponent />
+      </v-col> -->
     </v-row>
 
     <br>
 
     <v-row>
-      <v-col sm="3"></v-col>
       <v-col sm="6">
-        <div>
-          <h4 class="text-overline">
-            <v-icon>
-              mdi-file-sign
-            </v-icon>
-            List of Statuses
-          </h4>
+        <h4 class="text-overline">
+          <v-icon>
+            mdi-file-sign
+          </v-icon>
+          List of Statuses
+        </h4>
 
-          <v-container style="height: 300px;" class="overflow-y-auto">
-            <p v-for="(date, index) in datesOnly" :key="index">
-              <span class="text-overline primary--text font-weight-bold">{{ date }}</span>
-              <ul v-for="(status, index) in statuses" :key="index">
-                <li v-if="standardizeDateFormat(status.date) === date" class="text-body1">
-                  <span class="text-body-2">
-                    {{ addTimeToDateFormat(status.date) }} {{ status.feeling }}
+        <v-container style="height: 400px;" class="overflow-y-auto">
+          <p v-for="(date, index) in datesOnly" :key="index">
+            <span class="text-overline primary--text font-weight-bold">{{ date }}</span>
+            <ul v-for="(status, index) in statuses" :key="index">
+              <li v-if="standardizeDateFormat(status.date) === date" class="text-body1">
+                <span class="text-body-2">
+                  <span class="font-italic mr-4">
+                    {{ addTimeToDateFormat(status.date) }}
                   </span>
-                </li>
-              </ul>
+                  {{ status.feeling }}
+                </span>
+              </li>
+            </ul>
 
-              <br>
-              <v-divider></v-divider>
-            </p>
-          </v-container>
-        </div>
-      </v-col>
-      <v-col sm="3"></v-col>
-    </v-row>
+            <br>
 
-    <v-row>
-      <v-col sm="3"></v-col>
-      <v-col sm="6">
-        <CalendarComponent />
+            <v-divider></v-divider>
+          </p>
+        </v-container>
       </v-col>
-      <v-col sm="3"></v-col>
     </v-row>
   </v-container>
 </template>
