@@ -47,7 +47,7 @@
               <span class="text-overline primary--text font-weight-bold">{{ date }}</span>
               <ul v-for="(status, index) in statuses" :key="index">
                 <li v-if="standardizeDateFormat(status.date) === date" class="text-body1">
-                  <span class="text-body2">
+                  <span class="text-body-2">
                     {{ addTimeToDateFormat(status.date) }} {{ status.feeling }}
                   </span>
                 </li>
