@@ -1,9 +1,12 @@
 <template>
   <v-container>
-    <br>
     <v-row>
       <v-col sm="5">
-        <br />
+        <v-switch
+          v-model="feelingToday"
+          :label="feelingToday ? `Today's Feeling` : `Feelings in the past days`">
+        </v-switch>
+
         <v-row>
           <v-text-field
             v-model="status"
@@ -11,10 +14,11 @@
             clearable
           ></v-text-field>
         </v-row>
+
         <p class="text-caption primary--text">
           Note: Time and Date are automatically included.
         </p>
-        <br />
+
         <v-row>
           <v-spacer> </v-spacer>
           <v-btn :disabled="emptyStatus" color="primary" small @click="storeStatus()">
@@ -119,6 +123,7 @@ export default {
       }
     ],
     emptyStatus: true,
+    feelingToday: true,
     status: '',
     statuses: [
       {
