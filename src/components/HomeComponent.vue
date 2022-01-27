@@ -4,7 +4,10 @@
       <v-col sm="5">
         <v-switch
           v-model="feelingToday"
-          :label="feelingToday ? `Today's Feeling` : `Feelings in the past days`">
+          :label="
+            feelingToday ? `Today's Feeling` : `Feelings in the past days`
+          "
+        >
         </v-switch>
 
         <v-row class="pl-4">
@@ -16,10 +19,14 @@
           ></v-text-field>
         </v-row>
 
-
         <v-row>
           <v-spacer> </v-spacer>
-          <v-btn :disabled="emptyStatus" color="primary" small @click="storeStatus()">
+          <v-btn
+            :disabled="emptyStatus"
+            color="primary"
+            small
+            @click="storeStatus()"
+          >
             Enter
           </v-btn>
         </v-row>
@@ -31,14 +38,12 @@
       </v-col> -->
     </v-row>
 
-    <br>
+    <br />
 
     <v-row>
       <v-col sm="6">
         <h4 class="text-overline">
-          <v-icon>
-            mdi-file-sign
-          </v-icon>
+          <v-icon> mdi-file-sign </v-icon>
           List of Statuses
         </h4>
 
@@ -119,12 +124,17 @@ export default {
   }),
 
   created() {
-    this.getDatesOnly()
+    this.setUpStatuses()
+    this.sortStatusByAscDate()
   },
 
   watch: {
     status: function () {
       this.emptyStatus = this.status?.length > 0 ? false : true
+    },
+
+    statuses: function() {
+      this.setUpStatuses()
     }
   },
 
@@ -134,7 +144,7 @@ export default {
       return format(date, "hh:mm aaaaa'm'")
     },
 
-    getDatesOnly: function () {
+    setUpStatuses: function () {
       /**
        * This is to create an array of dates with no duplicates.
        *
@@ -149,22 +159,30 @@ export default {
       this.datesOnly = datesOnly
     },
 
+    sortStatusByAscDate: function() {
+      // Got the solution for sorting dates:
+      //  https://flaviocopes.com/how-to-sort-array-by-date-javascript/
+      const sortedStatuses = this.statuses
+        .slice()
+        .sort((a, b) => b.date - a.date)
+
+      this.statuses.splice(0, this.statuses.length, ...sortedStatuses)
+    },
+
     standardizeDateFormat(date) {
       // i.e. November 16, 2021, Thursday
       return format(date, 'MMMM d, yyyy, EEEE')
     },
 
     storeStatus: function () {
-      // const date = new Date()
-      // const status = {
-      //   feeling: this.status,
-      //   date: date,
-      //   dayOfWeek: `${format(date, 'eeee')}`,
-      //   time: formatISO9075(date, { representation: 'time' })
-      // }
-      // this.statuses.push(status)
-      // this.status = ''
-      // console.log('this.statuses:', this.statuses)
+      const newStatus = {
+        feeling: this.status,
+        date: new Date()
+      }
+      this.statuses.push(newStatus)
+      this.sortStatusByAscDate()
+      this.status = ''
+
       // loading UI begin
       // push
       // sort
