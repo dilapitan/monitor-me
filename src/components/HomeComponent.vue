@@ -46,7 +46,7 @@
                       v-on="on"
                     ></v-text-field>
                   </template>
-                  <v-date-picker v-model="date" scrollable>
+                  <v-date-picker v-model="date" :max="getToday()" scrollable>
                     <v-spacer></v-spacer>
                     <v-btn text color="primary" @click="dateModel = false">
                       Cancel
@@ -211,6 +211,7 @@ export default {
     ],
     time: null,
     timeModel: false,
+    today: new Date(),
     datesOnly: [],
   }),
 
@@ -233,6 +234,11 @@ export default {
     addTimeToDateFormat(date) {
       // i.e. 7:45 am
       return format(date, "hh:mm aaaaa'm'")
+    },
+
+    getToday() {
+      const today = new Date()
+      return format(today, 'yyyy-MM-dd')
     },
 
     setUpStatuses: function () {
