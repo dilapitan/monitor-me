@@ -44,6 +44,7 @@
                       readonly
                       v-bind="attrs"
                       v-on="on"
+                      clearable
                     ></v-text-field>
                   </template>
                   <v-date-picker v-model="date" :max="getToday()" scrollable>
@@ -77,6 +78,7 @@
                       readonly
                       v-bind="attrs"
                       v-on="on"
+                      clearable
                     ></v-text-field>
                   </template>
 
