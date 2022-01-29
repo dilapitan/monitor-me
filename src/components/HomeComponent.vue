@@ -48,27 +48,26 @@
         </h4>
 
         <v-container style="height: 400px" class="overflow-y-auto">
-          <p v-for="(date, index) in datesOnly" :key="index">
-            <span class="text-overline primary--text font-weight-bold">{{
-              date
-            }}</span>
-            <ul v-for="(status, index) in statuses" :key="index">
-            <li
-              v-if="standardizeDateFormat(status.date) === date"
-              class="text-body1"
-            >
-              <span class="text-body-2">
-                <span class="font-italic mr-4">
-                  {{ addTimeToDateFormat(status.date) }}
-                </span>
-                {{ status.feeling }}
-              </span>
-            </li>
-          </ul>
-          </p>
-
-
-
+          <div v-for="(date, index) in datesOnly" :key="index">
+            <div>
+              <span class="text-overline primary--text font-weight-bold">{{
+                date
+              }}</span>
+              <ul v-for="(status, index) in statuses" :key="index">
+                <li
+                  v-if="standardizeDateFormat(status.date) === date"
+                  class="text-body1"
+                >
+                  <span class="text-body-2">
+                    <span class="font-italic mr-4">
+                      {{ addTimeToDateFormat(status.date) }}
+                    </span>
+                    {{ status.feeling }}
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
           <br />
 
           <v-divider></v-divider>
