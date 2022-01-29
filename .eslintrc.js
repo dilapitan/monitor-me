@@ -11,6 +11,16 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    semi: 0
+    quotes: [0, 'single', { avoidEscape: true, allowTemplateLiterals: true }],
+    semi: ['error', 'never'],
+    'prettier/prettier': [
+      'error',
+      {
+        trailingComma: 'es5',
+        singleQuote: true,
+        semi: false,
+        printWidth: 80
+      }
+    ]
   }
 }
