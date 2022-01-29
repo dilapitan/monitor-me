@@ -30,7 +30,7 @@
             <v-row>
               <v-col sm="6">
                 <v-dialog
-                  ref="dialog"
+                  ref="dateDialog"
                   v-model="dateModel"
                   :return-value.sync="date"
                   persistent
@@ -54,7 +54,7 @@
                     <v-btn
                       text
                       color="primary"
-                      @click="$refs.dialog.save(date)"
+                      @click="$refs.dateDialog.save(date)"
                     >
                       OK
                     </v-btn>
@@ -63,7 +63,7 @@
               </v-col>
               <v-col sm="6">
                 <v-dialog
-                  ref="dialog"
+                  ref="timeDialog"
                   v-model="timeModel"
                   :return-value.sync="time"
                   persistent
@@ -88,7 +88,7 @@
                     <v-btn
                       text
                       color="primary"
-                      @click="$refs.dialog.save(time)"
+                      @click="$refs.timeDialog.save(time)"
                     >
                       OK
                     </v-btn>
