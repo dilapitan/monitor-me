@@ -11,12 +11,92 @@
         </v-switch>
 
         <v-row class="pl-4">
-          <v-text-field
-            v-model="status"
-            placeholder="What are you feeling?"
-            clearable
-            hint="Note: Time and Date are automatically included."
-          ></v-text-field>
+          <template v-if="feelingToday">
+            <v-text-field
+              v-model="status"
+              placeholder="What are you feeling right now?"
+              clearable
+              hint="Note: Time and Date are automatically included."
+            ></v-text-field>
+          </template>
+
+          <template v-else>
+            <v-text-field
+              v-model="status"
+              placeholder="What are you feeling in the past days?"
+              clearable
+            ></v-text-field>
+
+            <v-row>
+              <v-col sm="6">
+                <v-dialog
+                  ref="dialog"
+                  v-model="dateModel"
+                  :return-value.sync="date"
+                  persistent
+                  width="290px"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      v-model="date"
+                      label="Choose a date"
+                      prepend-icon="mdi-calendar"
+                      readonly
+                      v-bind="attrs"
+                      v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker v-model="date" scrollable>
+                    <v-spacer></v-spacer>
+                    <v-btn text color="primary" @click="dateModel = false">
+                      Cancel
+                    </v-btn>
+                    <v-btn
+                      text
+                      color="primary"
+                      @click="$refs.dialog.save(date)"
+                    >
+                      OK
+                    </v-btn>
+                  </v-date-picker>
+                </v-dialog>
+              </v-col>
+              <v-col sm="6">
+                <v-dialog
+                  ref="dialog"
+                  v-model="timeModel"
+                  :return-value.sync="time"
+                  persistent
+                  width="290px"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      v-model="time"
+                      label="Chosen time"
+                      prepend-icon="mdi-clock-time-four-outline"
+                      readonly
+                      v-bind="attrs"
+                      v-on="on"
+                    ></v-text-field>
+                  </template>
+
+                  <v-time-picker v-if="timeModel" v-model="time" full-width>
+                    <v-spacer></v-spacer>
+                    <v-btn text color="primary" @click="timeModel = false">
+                      Cancel
+                    </v-btn>
+                    <v-btn
+                      text
+                      color="primary"
+                      @click="$refs.dialog.save(time)"
+                    >
+                      OK
+                    </v-btn>
+                  </v-time-picker>
+                </v-dialog>
+              </v-col>
+            </v-row>
+          </template>
         </v-row>
 
         <v-row>
@@ -89,6 +169,9 @@ export default {
   // },
 
   data: () => ({
+    date: null,
+    dateModel: false,
+    dialogTime: false,
     emptyStatus: true,
     feelingToday: true,
     status: '',
@@ -126,6 +209,8 @@ export default {
         date: new Date(2022, 0, 8, 15, 0, 30, 0),
       },
     ],
+    time: null,
+    timeModel: false,
     datesOnly: [],
   }),
 
