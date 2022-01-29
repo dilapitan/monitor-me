@@ -47,24 +47,31 @@
           List of Statuses
         </h4>
 
-        <v-container style="height: 400px;" class="overflow-y-auto">
+        <v-container style="height: 400px" class="overflow-y-auto">
           <p v-for="(date, index) in datesOnly" :key="index">
-            <span class="text-overline primary--text font-weight-bold">{{ date }}</span>
+            <span class="text-overline primary--text font-weight-bold">{{
+              date
+            }}</span>
             <ul v-for="(status, index) in statuses" :key="index">
-              <li v-if="standardizeDateFormat(status.date) === date" class="text-body1">
-                <span class="text-body-2">
-                  <span class="font-italic mr-4">
-                    {{ addTimeToDateFormat(status.date) }}
-                  </span>
-                  {{ status.feeling }}
+            <li
+              v-if="standardizeDateFormat(status.date) === date"
+              class="text-body1"
+            >
+              <span class="text-body-2">
+                <span class="font-italic mr-4">
+                  {{ addTimeToDateFormat(status.date) }}
                 </span>
-              </li>
-            </ul>
-
-            <br>
-
-            <v-divider></v-divider>
+                {{ status.feeling }}
+              </span>
+            </li>
+          </ul>
           </p>
+
+
+
+          <br />
+
+          <v-divider></v-divider>
         </v-container>
       </v-col>
     </v-row>
@@ -72,15 +79,15 @@
 </template>
 
 <script>
-import CalendarComponent from '@/components/CalendarComponent'
+// import CalendarComponent from '@/components/CalendarComponent'
 import { format } from 'date-fns'
 
 export default {
   name: 'Home',
 
-  components: {
-    CalendarComponent
-  },
+  // components: {
+  //   CalendarComponent,
+  // },
 
   data: () => ({
     emptyStatus: true,
@@ -89,41 +96,41 @@ export default {
     statuses: [
       {
         feeling: 'Having some colds',
-        date: new Date(2022, 0, 3, 8, 33, 30, 0)
+        date: new Date(2022, 0, 3, 8, 33, 30, 0),
       },
       {
         feeling: 'Having some chills',
-        date: new Date(2022, 0, 4, 10, 33, 30, 0)
+        date: new Date(2022, 0, 4, 10, 33, 30, 0),
       },
       {
         feeling: 'No taste and smell',
-        date: new Date(2022, 0, 5, 9, 33, 30, 0)
+        date: new Date(2022, 0, 5, 9, 33, 30, 0),
       },
       {
         feeling: 'Weakening of body',
-        date: new Date(2022, 0, 5, 10, 55, 30, 0)
+        date: new Date(2022, 0, 5, 10, 55, 30, 0),
       },
       {
         feeling: 'Having fever',
-        date: new Date(2022, 0, 6, 7, 50, 30, 0)
+        date: new Date(2022, 0, 6, 7, 50, 30, 0),
       },
       {
         feeling: 'Lowering of fever, having some taste and smell',
-        date: new Date(2022, 0, 7, 6, 33, 30, 0)
+        date: new Date(2022, 0, 7, 6, 33, 30, 0),
       },
       {
         feeling: 'No more fever, regaining strength',
-        date: new Date(2022, 0, 8, 9, 33, 30, 0)
+        date: new Date(2022, 0, 8, 9, 33, 30, 0),
       },
       {
         feeling: 'Feeling better',
-        date: new Date(2022, 0, 8, 15, 0, 30, 0)
-      }
+        date: new Date(2022, 0, 8, 15, 0, 30, 0),
+      },
     ],
-    datesOnly: []
+    datesOnly: [],
   }),
 
-  created() {
+  mounted() {
     this.setUpStatuses()
     this.sortStatusByAscDate()
   },
@@ -133,9 +140,9 @@ export default {
       this.emptyStatus = this.status?.length > 0 ? false : true
     },
 
-    statuses: function() {
+    statuses: function () {
       this.setUpStatuses()
-    }
+    },
   },
 
   methods: {
@@ -145,6 +152,10 @@ export default {
     },
 
     setUpStatuses: function () {
+      if (this.statuses === null) {
+        // API
+      }
+
       /**
        * This is to create an array of dates with no duplicates.
        *
@@ -159,7 +170,7 @@ export default {
       this.datesOnly = datesOnly
     },
 
-    sortStatusByAscDate: function() {
+    sortStatusByAscDate: function () {
       // Got the solution for sorting dates:
       //  https://flaviocopes.com/how-to-sort-array-by-date-javascript/
       const sortedStatuses = this.statuses
@@ -177,7 +188,7 @@ export default {
     storeStatus: function () {
       const newStatus = {
         feeling: this.status,
-        date: new Date()
+        date: new Date(),
       }
       this.statuses.push(newStatus)
       this.sortStatusByAscDate()
@@ -188,7 +199,7 @@ export default {
       // sort
       // update
       // loading UI finish
-    }
-  }
+    },
+  },
 }
 </script>

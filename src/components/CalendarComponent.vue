@@ -14,44 +14,44 @@
 <script>
 export default {
   data() {
-    const month = new Date().getMonth()
-    const year = new Date().getFullYear()
+    const month = new Date().getMonth();
+    const year = new Date().getFullYear();
     return {
       masks: {
-        weekdays: 'WWW'
+        weekdays: "WWW",
       },
       attributes: [
         {
-          key: 'today',
+          key: "today",
           highlight: true,
-          dates: new Date()
+          dates: new Date(),
         },
         {
           key: 1,
           dates: new Date(year, month, 24),
           highlight: {
-            color: 'green',
-            fillMode: 'outline'
+            color: "green",
+            fillMode: "outline",
           },
           popover: {
-            label: 'Water Plants',
-            visibility: 'click'
-          }
+            label: "Water Plants",
+            visibility: "click",
+          },
         },
         {
           key: 2,
           dates: new Date(year, month, 24),
           highlight: {
-            color: 'green',
-            fillMode: 'outline'
+            color: "green",
+            fillMode: "outline",
           },
           popover: {
-            label: 'Read 30 pages',
-            visibility: 'click'
-          }
-        }
-      ]
-    }
-  }
-}
+            label: "Read 30 pages",
+            visibility: "click",
+          },
+        },
+      ],
+    };
+  },
+};
 </script>
