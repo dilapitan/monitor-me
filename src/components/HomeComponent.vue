@@ -224,7 +224,17 @@ export default {
 
   watch: {
     status: function () {
-      this.emptyStatus = this.status?.length > 0 ? false : true
+      if (this.feelingToday)
+        this.emptyStatus = this.status?.length > 0 ? false : true
+      else {
+        if (this.status?.length && this.date) this.emptyStatus = false
+        else this.emptyStatus = true
+      }
+    },
+
+    date: function () {
+      if (this.status?.length > 0 && this.date) this.emptyStatus = false
+      else this.emptyStatus = true
     },
 
     statuses: function () {
@@ -278,13 +288,36 @@ export default {
     },
 
     storeStatus: function () {
-      const newStatus = {
-        feeling: this.status,
-        date: new Date(),
+      if (this.feelingToday) {
+        const newStatus = {
+          feeling: this.status,
+          date: new Date(),
+        }
+        this.statuses.push(newStatus)
+        this.sortStatusByAscDate()
+        this.status = ''
+      } else {
+        let date = this.date ? this.date : new Date()
+        let selectedDate
+        if (this.time) {
+          const parsedTime = this.time.split(':')
+          selectedDate = new Date(date)
+          selectedDate.setHours(Number(parsedTime[0]))
+          selectedDate.setMinutes(Number(parsedTime[1]))
+        } else {
+          date = new Date(this.date)
+        }
+
+        const newStatus = {
+          feeling: this.status,
+          date: this.time ? selectedDate : date,
+        }
+        this.statuses.push(newStatus)
+        this.sortStatusByAscDate()
+        this.status = ''
+        this.date = null
+        this.time = null
       }
-      this.statuses.push(newStatus)
-      this.sortStatusByAscDate()
-      this.status = ''
 
       // loading UI begin
       // push
