@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col sm="5">
+      <v-col cols="11" sm="6" md="5">
         <v-switch
           v-model="feelingToday"
           :label="
