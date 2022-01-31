@@ -129,7 +129,12 @@
           List of Statuses
         </h4>
 
-        <v-container style="height: 400px" class="overflow-y-auto">
+        <div v-if="datesOnly.length === 0">
+          <br />
+          <p class="font-italic grey--text text-center">No statuses yet.</p>
+        </div>
+
+        <v-container v-else style="height: 400px" class="overflow-y-auto">
           <div v-for="(date, index) in datesOnly" :key="index">
             <div>
               <span class="text-overline primary--text font-weight-bold">{{
