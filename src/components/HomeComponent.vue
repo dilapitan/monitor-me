@@ -140,19 +140,17 @@
               <span class="text-overline primary--text font-weight-bold">{{
                 date
               }}</span>
-              <ul v-for="(status, index) in statuses" :key="index">
-                <li
-                  v-if="standardizeDateFormat(status.date) === date"
-                  class="text-body1"
-                >
-                  <span class="text-body-2">
-                    <span class="font-italic mr-4">
-                      {{ addTimeToDateFormat(status.date) }}
-                    </span>
+              <v-card v-for="(status, index) in statuses" :key="index" flat>
+                <template v-if="standardizeDateFormat(status.date) === date">
+                  <v-card-title class="text-body-2">
                     {{ status.feeling }}
-                  </span>
-                </li>
-              </ul>
+                  </v-card-title>
+
+                  <v-card-subtitle class="font-italic">
+                    {{ addTimeToDateFormat(status.date) }}
+                  </v-card-subtitle>
+                </template>
+              </v-card>
             </div>
           </div>
           <br />
