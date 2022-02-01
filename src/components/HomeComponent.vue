@@ -73,7 +73,7 @@
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
                       v-model="time"
-                      label="Chosen time"
+                      label="Choose a time"
                       prepend-icon="mdi-clock-time-four-outline"
                       readonly
                       v-bind="attrs"
