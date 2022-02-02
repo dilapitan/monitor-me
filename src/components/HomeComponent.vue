@@ -129,6 +129,8 @@
           List of Statuses
         </h4>
 
+        <br />
+
         <div v-if="datesOnly.length === 0">
           <br />
           <p class="font-italic grey--text text-center">No statuses yet.</p>
