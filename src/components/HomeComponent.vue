@@ -158,11 +158,22 @@
 
                   <v-row class="pr-5">
                     <v-spacer></v-spacer>
-                    <v-btn color="grey lighten-2" small icon class="mr-2">
+                    <v-btn
+                      color="grey lighten-2"
+                      small
+                      icon
+                      class="mr-2"
+                      @click="openModal('edit')"
+                    >
                       <v-icon>mdi-square-edit-outline</v-icon>
                     </v-btn>
 
-                    <v-btn color="grey lighten-2" small icon>
+                    <v-btn
+                      color="grey lighten-2"
+                      small
+                      icon
+                      @click="openModal('delete')"
+                    >
                       <v-icon>mdi-delete</v-icon>
                     </v-btn>
                   </v-row>
@@ -172,7 +183,11 @@
           </div>
           <br />
 
-          <v-divider></v-divider>
+          <ModalComponent
+            :action="action"
+            :dialog="dialog"
+            @closeModal="closeModal()"
+          />
         </v-container>
       </v-col>
     </v-row>
@@ -181,18 +196,22 @@
 
 <script>
 // import CalendarComponent from '@/components/CalendarComponent'
+import ModalComponent from '@/components/shared/ModalComponent'
 import { format } from 'date-fns'
 
 export default {
   name: 'Home',
 
-  // components: {
-  //   CalendarComponent,
-  // },
+  components: {
+    // CalendarComponent,
+    ModalComponent,
+  },
 
   data: () => ({
+    action: '',
     date: null,
     dateModel: false,
+    dialog: false,
     dialogTime: false,
     emptyStatus: true,
     feelingToday: true,
@@ -266,6 +285,15 @@ export default {
     addTimeToDateFormat(date) {
       // i.e. 7:45 am
       return format(date, "hh:mm aaaaa'm'")
+    },
+
+    closeModal() {
+      this.dialog = false
+    },
+
+    openModal(action) {
+      this.action = action
+      this.dialog = true
     },
 
     getToday() {
