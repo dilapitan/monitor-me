@@ -140,7 +140,11 @@
               <span class="text-overline primary--text font-weight-bold">{{
                 date
               }}</span>
-              <v-card v-for="(status, index) in statuses" :key="index" flat>
+              <v-card
+                v-for="(status, index) in statuses"
+                :key="index"
+                class="mb-5"
+              >
                 <template v-if="standardizeDateFormat(status.date) === date">
                   <v-card-title class="text-body-2">
                     {{ status.feeling }}
@@ -149,6 +153,17 @@
                   <v-card-subtitle class="font-italic">
                     {{ addTimeToDateFormat(status.date) }}
                   </v-card-subtitle>
+
+                  <v-row class="pr-5">
+                    <v-spacer></v-spacer>
+                    <v-btn color="grey lighten-2" small icon class="mr-2">
+                      <v-icon>mdi-square-edit-outline</v-icon>
+                    </v-btn>
+
+                    <v-btn color="grey lighten-2" small icon>
+                      <v-icon>mdi-delete</v-icon>
+                    </v-btn>
+                  </v-row>
                 </template>
               </v-card>
             </div>
