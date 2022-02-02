@@ -2,118 +2,8 @@
   <v-container>
     <v-row>
       <v-col cols="11" sm="6" md="5">
-        <v-switch
-          v-model="feelingToday"
-          :label="
-            feelingToday ? `Today's Feeling` : `Feelings in the past days`
-          "
-        >
-        </v-switch>
-
-        <v-row class="pl-4">
-          <template v-if="feelingToday">
-            <v-text-field
-              v-model="status"
-              placeholder="What are you feeling right now?"
-              clearable
-              hint="Note: Time and Date are automatically included."
-            ></v-text-field>
-          </template>
-
-          <template v-else>
-            <v-text-field
-              v-model="status"
-              placeholder="What are you feeling in the past days?"
-              clearable
-            ></v-text-field>
-
-            <v-row>
-              <v-col sm="6">
-                <v-dialog
-                  ref="dateDialog"
-                  v-model="dateModel"
-                  :return-value.sync="date"
-                  persistent
-                  width="290px"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="date"
-                      label="Choose a date"
-                      prepend-icon="mdi-calendar"
-                      readonly
-                      v-bind="attrs"
-                      v-on="on"
-                      clearable
-                    ></v-text-field>
-                  </template>
-                  <v-date-picker v-model="date" :max="getToday()" scrollable>
-                    <v-spacer></v-spacer>
-                    <v-btn text color="primary" @click="dateModel = false">
-                      Cancel
-                    </v-btn>
-                    <v-btn
-                      text
-                      color="primary"
-                      @click="$refs.dateDialog.save(date)"
-                    >
-                      OK
-                    </v-btn>
-                  </v-date-picker>
-                </v-dialog>
-              </v-col>
-              <v-col sm="6">
-                <v-dialog
-                  ref="timeDialog"
-                  v-model="timeModel"
-                  :return-value.sync="time"
-                  persistent
-                  width="290px"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="time"
-                      label="Choose a time"
-                      prepend-icon="mdi-clock-time-four-outline"
-                      readonly
-                      v-bind="attrs"
-                      v-on="on"
-                      clearable
-                    ></v-text-field>
-                  </template>
-
-                  <v-time-picker v-if="timeModel" v-model="time" full-width>
-                    <v-spacer></v-spacer>
-                    <v-btn text color="primary" @click="timeModel = false">
-                      Cancel
-                    </v-btn>
-                    <v-btn
-                      text
-                      color="primary"
-                      @click="$refs.timeDialog.save(time)"
-                    >
-                      OK
-                    </v-btn>
-                  </v-time-picker>
-                </v-dialog>
-              </v-col>
-            </v-row>
-          </template>
-        </v-row>
-
-        <v-row>
-          <v-spacer> </v-spacer>
-          <v-btn
-            :disabled="emptyStatus"
-            color="primary"
-            small
-            @click="storeStatus()"
-          >
-            Enter
-          </v-btn>
-        </v-row>
+        <FormComponent @setStatus="getSubmittedStatus" />
       </v-col>
-
       <!-- <v-col sm="3">
         <br /><br /><br />
         <CalendarComponent />
@@ -196,6 +86,7 @@
 
 <script>
 // import CalendarComponent from '@/components/CalendarComponent'
+import FormComponent from '@/components/shared/FormComponent'
 import ModalComponent from '@/components/shared/ModalComponent'
 import { format } from 'date-fns'
 
@@ -204,18 +95,13 @@ export default {
 
   components: {
     // CalendarComponent,
+    FormComponent,
     ModalComponent,
   },
 
   data: () => ({
     action: '',
-    date: null,
-    dateModel: false,
     dialog: false,
-    dialogTime: false,
-    emptyStatus: true,
-    feelingToday: true,
-    status: '',
     statuses: [
       {
         feeling: 'Having some colds',
@@ -250,9 +136,6 @@ export default {
         date: new Date(2022, 0, 8, 15, 0, 30, 0),
       },
     ],
-    time: null,
-    timeModel: false,
-    today: new Date(),
     datesOnly: [],
   }),
 
@@ -262,20 +145,6 @@ export default {
   },
 
   watch: {
-    status: function () {
-      if (this.feelingToday)
-        this.emptyStatus = this.status?.length > 0 ? false : true
-      else {
-        if (this.status?.length && this.date) this.emptyStatus = false
-        else this.emptyStatus = true
-      }
-    },
-
-    date: function () {
-      if (this.status?.length > 0 && this.date) this.emptyStatus = false
-      else this.emptyStatus = true
-    },
-
     statuses: function () {
       this.setUpStatuses()
     },
@@ -291,14 +160,13 @@ export default {
       this.dialog = false
     },
 
+    getSubmittedStatus(status) {
+      this.storeStatus(status)
+    },
+
     openModal(action) {
       this.action = action
       this.dialog = true
-    },
-
-    getToday() {
-      const today = new Date()
-      return format(today, 'yyyy-MM-dd')
     },
 
     setUpStatuses: function () {
@@ -335,36 +203,34 @@ export default {
       return format(date, 'MMMM d, yyyy, EEEE')
     },
 
-    storeStatus: function () {
-      if (this.feelingToday) {
+    storeStatus: function (retrievedStatus) {
+      const { feelingToday, status, date, time } = retrievedStatus
+
+      if (feelingToday) {
         const newStatus = {
-          feeling: this.status,
+          feeling: status,
           date: new Date(),
         }
         this.statuses.push(newStatus)
         this.sortStatusByAscDate()
-        this.status = ''
       } else {
-        let date = this.date ? this.date : new Date()
+        let _date = date ? date : new Date()
         let selectedDate
-        if (this.time) {
-          const parsedTime = this.time.split(':')
-          selectedDate = new Date(date)
+        if (time) {
+          const parsedTime = time.split(':')
+          selectedDate = new Date(_date)
           selectedDate.setHours(Number(parsedTime[0]))
           selectedDate.setMinutes(Number(parsedTime[1]))
         } else {
-          date = new Date(this.date)
+          _date = new Date(date)
         }
 
         const newStatus = {
-          feeling: this.status,
-          date: this.time ? selectedDate : date,
+          feeling: status,
+          date: time ? selectedDate : _date,
         }
         this.statuses.push(newStatus)
         this.sortStatusByAscDate()
-        this.status = ''
-        this.date = null
-        this.time = null
       }
 
       // loading UI begin
