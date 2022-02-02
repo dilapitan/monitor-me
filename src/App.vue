@@ -22,10 +22,10 @@
 </template>
 
 <script>
-import HomeComponent from "@/components/HomeComponent";
+import HomeComponent from '@/components/HomeComponent'
 
 export default {
-  name: "App",
+  name: 'App',
 
   components: {
     HomeComponent,
@@ -34,5 +34,5 @@ export default {
   data: () => ({
     //
   }),
-};
+}
 </script>
