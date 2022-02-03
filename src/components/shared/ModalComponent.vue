@@ -16,9 +16,10 @@
 
       <v-card-actions v-if="action === 'delete'">
         <v-spacer></v-spacer>
-        <v-btn color="grey" text @click="closeModal()">Cancel</v-btn>
+        <v-btn color="grey" text small @click="closeModal()">Cancel</v-btn>
         <v-btn
           class="white--text"
+          small
           :color="action === 'edit' ? 'primary' : 'destructive'"
           @click="closeModal()"
         >
