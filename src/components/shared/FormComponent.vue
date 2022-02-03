@@ -100,6 +100,15 @@
     <v-row>
       <v-spacer> </v-spacer>
       <v-btn
+        v-if="statusData"
+        text
+        class="grey--text mr-2"
+        small
+        @click="closeModal()"
+      >
+        Cancel
+      </v-btn>
+      <v-btn
         :disabled="emptyStatus"
         color="primary"
         small
@@ -116,6 +125,14 @@ import { format } from 'date-fns'
 
 export default {
   name: 'Form',
+
+  props: ['statusData'],
+
+  mounted() {
+    if (this.statusData) {
+      this.setStatusData()
+    }
+  },
 
   data: () => ({
     date: null,
@@ -145,6 +162,10 @@ export default {
   },
 
   methods: {
+    closeModal() {
+      this.$emit('closeModal')
+    },
+
     getSubmittedStatus() {
       const status = {
         feelingToday: this.feelingToday,
@@ -165,6 +186,19 @@ export default {
     getToday() {
       const today = new Date()
       return format(today, 'yyyy-MM-dd')
+    },
+
+    setStatusData() {
+      const today = new Date()
+
+      if (
+        format(this.statusData.date, 'yyyy-MM-dd') ===
+        format(today, 'yyyy-MM-dd')
+      ) {
+        console.log('Feeling today')
+      } else {
+        console.log('Previous feelings')
+      }
     },
   },
 }

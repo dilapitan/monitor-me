@@ -53,7 +53,7 @@
                       small
                       icon
                       class="mr-2"
-                      @click="openModal('edit')"
+                      @click="openModal('edit', status)"
                     >
                       <v-icon>mdi-square-edit-outline</v-icon>
                     </v-btn>
@@ -62,7 +62,7 @@
                       color="grey lighten-2"
                       small
                       icon
-                      @click="openModal('delete')"
+                      @click="openModal('delete', status)"
                     >
                       <v-icon>mdi-delete</v-icon>
                     </v-btn>
@@ -76,6 +76,7 @@
           <ModalComponent
             :action="action"
             :dialog="dialog"
+            :modalData="modalData"
             @closeModal="closeModal"
           />
         </v-container>
@@ -136,6 +137,7 @@ export default {
         date: new Date(2022, 0, 8, 15, 0, 30, 0),
       },
     ],
+    modalData: null,
     datesOnly: [],
   }),
 
@@ -164,9 +166,10 @@ export default {
       this.storeStatus(status)
     },
 
-    openModal(action) {
+    openModal(action, status) {
       this.action = action
       this.dialog = true
+      this.modalData = status
     },
 
     setUpStatuses: function () {
