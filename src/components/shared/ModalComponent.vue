@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" width="500">
+  <v-dialog :value="dialog" width="500" persistent>
     <v-card>
       <v-card-title class="text-h5 grey lighten-2">
         {{ action === 'edit' ? 'Edit Status' : 'Delete Status' }}

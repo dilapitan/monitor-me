@@ -76,7 +76,7 @@
           <ModalComponent
             :action="action"
             :dialog="dialog"
-            @closeModal="closeModal()"
+            @closeModal="closeModal"
           />
         </v-container>
       </v-col>
