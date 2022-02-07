@@ -121,7 +121,7 @@
         small
         @click="getSubmittedStatus()"
       >
-        Enter
+        {{ statusData ? 'Edit Status' : 'Enter' }}
       </v-btn>
     </v-row>
   </div>
