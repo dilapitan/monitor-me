@@ -9,6 +9,7 @@ export default new Vuetify({
       light: {
         primary: '#42b883',
         destructive: '#B71C1C',
+        offColor: '#272727',
       },
     },
   },

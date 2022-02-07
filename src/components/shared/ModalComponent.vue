@@ -1,7 +1,7 @@
 <template>
   <v-dialog :value="dialog" width="500" persistent>
     <v-card>
-      <v-card-title class="text-h5 grey lighten-2">
+      <v-card-title class="text-h5 offColor white--text">
         {{ action === 'edit' ? 'Edit Status' : 'Delete Status' }}
       </v-card-title>
 
