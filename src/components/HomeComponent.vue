@@ -159,6 +159,7 @@ export default {
     },
 
     closeModal() {
+      this.modalData = null
       this.dialog = false
     },
 

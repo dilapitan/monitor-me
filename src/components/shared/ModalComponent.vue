@@ -7,7 +7,11 @@
 
       <v-card-text>
         <template v-if="action === 'edit'">
-          <FormComponent :statusData="modalData" @closeModal="closeModal" />
+          <FormComponent
+            :statusData="modalData"
+            @closeModal="closeModal"
+            :dialog="dialog"
+          />
         </template>
         <template v-else> For Delete </template>
       </v-card-text>
@@ -51,6 +55,12 @@ export default {
     },
     modalData: {
       required: true,
+    },
+  },
+
+  watch: {
+    dialog: function () {
+      console.log('Modal dialog:', this.dialog)
     },
   },
 

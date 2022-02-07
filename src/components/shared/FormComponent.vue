@@ -78,7 +78,12 @@
                 ></v-text-field>
               </template>
 
-              <v-time-picker v-if="timeModel" v-model="time" full-width>
+              <v-time-picker
+                v-if="timeModel"
+                v-model="time"
+                full-width
+                format="ampm"
+              >
                 <v-spacer></v-spacer>
                 <v-btn text color="primary" @click="timeModel = false">
                   Cancel
@@ -126,13 +131,7 @@ import { format } from 'date-fns'
 export default {
   name: 'Form',
 
-  props: ['statusData'],
-
-  mounted() {
-    if (this.statusData) {
-      this.setStatusData()
-    }
-  },
+  props: ['statusData', 'dialog'],
 
   data: () => ({
     date: null,
@@ -145,10 +144,20 @@ export default {
     timeModel: false,
   }),
 
+  mounted() {
+    if (this.statusData) {
+      this.setStatusData()
+    }
+  },
+
   watch: {
     date: function () {
       if (this.status?.length > 0 && this.date) this.emptyStatus = false
       else this.emptyStatus = true
+    },
+
+    dialog: function () {
+      if (this.dialog && this.statusData) this.setStatusData()
     },
 
     status: function () {
@@ -162,7 +171,19 @@ export default {
   },
 
   methods: {
+    clearFields() {
+      this.status = ''
+      this.date = null
+      this.dateModel = false
+      this.feelingToday = true
+      this.dialogTime = false
+      this.emptyStatus = true
+      this.time = null
+      this.timeModel = false
+    },
+
     closeModal() {
+      this.clearFields()
       this.$emit('closeModal')
     },
 
@@ -190,15 +211,22 @@ export default {
 
     setStatusData() {
       const today = new Date()
+      console.log('this.statusData:', this.statusData)
+
+      console.log(format(this.statusData.date, 'hh:mm'))
 
       if (
         format(this.statusData.date, 'yyyy-MM-dd') ===
         format(today, 'yyyy-MM-dd')
       ) {
-        console.log('Feeling today')
+        this.feelingToday = true
       } else {
-        console.log('Previous feelings')
+        this.feelingToday = false
+        this.time = this.statusData.time
+        this.date = this.statusData.date
       }
+
+      this.status = this.statusData.feeling
     },
   },
 }
