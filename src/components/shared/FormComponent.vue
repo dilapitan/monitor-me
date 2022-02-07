@@ -168,6 +168,20 @@ export default {
         else this.emptyStatus = true
       }
     },
+
+    // time: function () {
+    //   if (this.time) {
+    //     const selectedTime = this.time.split(':')
+    //     if (selectedTime[0] > '12') {
+    //       const hours = Number(selectedTime[0]) - 12
+    //       const converted = `${hours.toString()}:${selectedTime[1]}`
+    //       this.time = converted
+    //     } else if (selectedTime[0] === '12') {
+    //       const converted = `12:${selectedTime[1]}`
+    //       this.time = converted
+    //     }
+    //   }
+    // },
   },
 
   methods: {
