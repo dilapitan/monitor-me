@@ -237,7 +237,7 @@ export default {
       } else {
         this.feelingToday = false
         this.time = this.statusData.time
-        this.date = this.statusData.date
+        this.date = format(this.statusData.date, 'yyyy-MM-dd')
       }
 
       this.status = this.statusData.feeling
