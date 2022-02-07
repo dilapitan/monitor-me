@@ -227,9 +227,6 @@ export default {
 
     setStatusData() {
       const today = new Date()
-      console.log('this.statusData:', this.statusData)
-
-      console.log(format(this.statusData.date, 'hh:mm'))
 
       if (
         format(this.statusData.date, 'yyyy-MM-dd') ===
@@ -238,8 +235,8 @@ export default {
         this.feelingToday = true
       } else {
         this.feelingToday = false
-        this.time = this.statusData.time
         this.date = format(this.statusData.date, 'yyyy-MM-dd')
+        this.time = format(this.statusData.date, 'HH:mm')
       }
 
       this.status = this.statusData.feeling
