@@ -38,6 +38,8 @@
                   label="Choose a date"
                   prepend-icon="mdi-calendar"
                   readonly
+                  hint="Format: Year-Month-Day"
+                  persistent-hint
                   v-bind="attrs"
                   v-on="on"
                   clearable
