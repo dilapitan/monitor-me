@@ -80,12 +80,7 @@
                 ></v-text-field>
               </template>
 
-              <v-time-picker
-                v-if="timeModel"
-                v-model="time"
-                full-width
-                format="ampm"
-              >
+              <v-time-picker v-model="time" full-width format="ampm">
                 <v-spacer></v-spacer>
                 <v-btn text color="primary" @click="timeModel = false">
                   Cancel
