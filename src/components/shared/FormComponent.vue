@@ -58,6 +58,8 @@
                   v-model="time"
                   label="Choose a time"
                   prepend-icon="mdi-clock-time-four-outline"
+                  hint="Default time is 8:00 am"
+                  persistent-hint
                   readonly
                   v-bind="attrs"
                   v-on="on"
@@ -83,6 +85,8 @@
         </v-row>
       </template>
     </v-row>
+
+    <br /><br />
 
     <v-row>
       <v-spacer> </v-spacer>
