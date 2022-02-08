@@ -1,89 +1,83 @@
 <template>
   <div>
     <v-row class="pl-4">
-      <template>
-        <v-text-field
-          v-model="status"
-          placeholder="What are you feeling?"
-          clearable
-        ></v-text-field>
+      <v-row>
+        <v-col cols="10" sm="12">
+          <v-text-field
+            v-model="status"
+            placeholder="What are you feeling?"
+            clearable
+          ></v-text-field>
+        </v-col>
+      </v-row>
 
-        <v-row>
-          <v-col sm="6">
-            <v-dialog
-              ref="dateDialog"
-              v-model="dateModel"
-              :return-value.sync="date"
-              persistent
-              width="290px"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  v-model="date"
-                  label="Choose a date"
-                  prepend-icon="mdi-calendar"
-                  readonly
-                  hint="Format: Year-Month-Day"
-                  persistent-hint
-                  v-bind="attrs"
-                  v-on="on"
-                  clearable
-                ></v-text-field>
-              </template>
-              <v-date-picker v-model="date" :max="getToday()" scrollable>
-                <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="dateModel = false">
-                  Cancel
-                </v-btn>
-                <v-btn
-                  text
-                  color="primary"
-                  @click="$refs.dateDialog.save(date)"
-                >
-                  OK
-                </v-btn>
-              </v-date-picker>
-            </v-dialog>
-          </v-col>
-          <v-col sm="6">
-            <v-dialog
-              ref="timeDialog"
-              v-model="timeModel"
-              :return-value.sync="time"
-              persistent
-              width="290px"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  v-model="time"
-                  label="Choose a time"
-                  prepend-icon="mdi-clock-time-four-outline"
-                  hint="Default time is 8:00 am"
-                  persistent-hint
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                  clearable
-                ></v-text-field>
-              </template>
+      <v-row>
+        <v-col cols="10" sm="6">
+          <v-dialog
+            ref="dateDialog"
+            v-model="dateModel"
+            :return-value.sync="date"
+            persistent
+            width="290px"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="date"
+                label="Choose a date"
+                prepend-icon="mdi-calendar"
+                readonly
+                hint="Format: Year-Month-Day"
+                persistent-hint
+                v-bind="attrs"
+                v-on="on"
+                clearable
+              ></v-text-field>
+            </template>
+            <v-date-picker v-model="date" :max="getToday()" scrollable>
+              <v-spacer></v-spacer>
+              <v-btn text color="primary" @click="dateModel = false">
+                Cancel
+              </v-btn>
+              <v-btn text color="primary" @click="$refs.dateDialog.save(date)">
+                OK
+              </v-btn>
+            </v-date-picker>
+          </v-dialog>
+        </v-col>
+        <v-col cols="10" sm="6">
+          <v-dialog
+            ref="timeDialog"
+            v-model="timeModel"
+            :return-value.sync="time"
+            persistent
+            width="290px"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="time"
+                label="Choose a time"
+                prepend-icon="mdi-clock-time-four-outline"
+                hint="Default time is 8:00 am"
+                persistent-hint
+                readonly
+                v-bind="attrs"
+                v-on="on"
+                clearable
+              ></v-text-field>
+            </template>
 
-              <v-time-picker v-model="time" full-width format="ampm">
-                <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="timeModel = false">
-                  Cancel
-                </v-btn>
-                <v-btn
-                  text
-                  color="primary"
-                  @click="$refs.timeDialog.save(time)"
-                >
-                  OK
-                </v-btn>
-              </v-time-picker>
-            </v-dialog>
-          </v-col>
-        </v-row>
-      </template>
+            <v-time-picker v-model="time" full-width format="ampm">
+              <v-spacer></v-spacer>
+              <v-btn text color="primary" @click="timeModel = false">
+                Cancel
+              </v-btn>
+              <v-btn text color="primary" @click="$refs.timeDialog.save(time)">
+                OK
+              </v-btn>
+            </v-time-picker>
+          </v-dialog>
+        </v-col>
+      </v-row>
     </v-row>
 
     <br /><br />
