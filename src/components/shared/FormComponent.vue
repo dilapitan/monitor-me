@@ -4,7 +4,7 @@
       <template>
         <v-text-field
           v-model="status"
-          placeholder="What are you feeling in the past days?"
+          placeholder="What are you feeling?"
           clearable
         ></v-text-field>
 
