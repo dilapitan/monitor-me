@@ -59,12 +59,6 @@ export default {
     },
   },
 
-  watch: {
-    dialog: function () {
-      console.log('Modal dialog:', this.dialog)
-    },
-  },
-
   methods: {
     closeModal() {
       this.$emit('closeModal')
