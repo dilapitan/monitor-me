@@ -7,6 +7,7 @@
 
       <v-card-text>
         <template v-if="action === 'edit'">
+          <br />
           <FormComponent
             :statusData="modalData"
             @closeModal="closeModal"

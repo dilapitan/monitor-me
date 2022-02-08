@@ -1,22 +1,7 @@
 <template>
   <div>
-    <v-switch
-      v-model="feelingToday"
-      :label="feelingToday ? `Today's Feeling` : `Feelings in the past days`"
-    >
-    </v-switch>
-
     <v-row class="pl-4">
-      <template v-if="feelingToday">
-        <v-text-field
-          v-model="status"
-          placeholder="What are you feeling right now?"
-          clearable
-          hint="Note: Time and Date are automatically included."
-        ></v-text-field>
-      </template>
-
-      <template v-else>
+      <template>
         <v-text-field
           v-model="status"
           placeholder="What are you feeling in the past days?"
@@ -133,7 +118,6 @@ export default {
   data: () => ({
     date: null,
     dateModel: false,
-    feelingToday: true,
     dialogTime: false,
     emptyStatus: true,
     status: '',
@@ -158,12 +142,8 @@ export default {
     },
 
     status: function () {
-      if (this.feelingToday)
-        this.emptyStatus = this.status?.length > 0 ? false : true
-      else {
-        if (this.status?.length && this.date) this.emptyStatus = false
-        else this.emptyStatus = true
-      }
+      if (this.status?.length && this.date) this.emptyStatus = false
+      else this.emptyStatus = true
     },
 
     // time: function () {
@@ -186,7 +166,6 @@ export default {
       this.status = ''
       this.date = null
       this.dateModel = false
-      this.feelingToday = true
       this.dialogTime = false
       this.emptyStatus = true
       this.time = null
@@ -200,17 +179,13 @@ export default {
 
     getSubmittedStatus() {
       const status = {
-        feelingToday: this.feelingToday,
         status: this.status,
         date: this.date,
         time: this.time,
       }
 
-      if (!this.feelingToday) {
-        this.date = null
-        this.time = null
-      }
-
+      this.date = null
+      this.time = null
       this.status = ''
       this.$emit('setStatus', status)
     },
@@ -221,18 +196,8 @@ export default {
     },
 
     setStatusData() {
-      const today = new Date()
-
-      if (
-        format(this.statusData.date, 'yyyy-MM-dd') ===
-        format(today, 'yyyy-MM-dd')
-      ) {
-        this.feelingToday = true
-      } else {
-        this.feelingToday = false
-        this.date = format(this.statusData.date, 'yyyy-MM-dd')
-        this.time = format(this.statusData.date, 'HH:mm')
-      }
+      this.date = format(this.statusData.date, 'yyyy-MM-dd')
+      this.time = format(this.statusData.date, 'HH:mm')
 
       this.status = this.statusData.feeling
     },

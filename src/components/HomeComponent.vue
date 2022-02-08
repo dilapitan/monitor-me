@@ -2,6 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="11" sm="6" md="5">
+        <br />
         <FormComponent @setStatus="getSubmittedStatus" />
       </v-col>
       <!-- <v-col sm="3">
@@ -208,34 +209,25 @@ export default {
     },
 
     storeStatus: function (retrievedStatus) {
-      const { feelingToday, status, date, time } = retrievedStatus
+      const { status, date, time } = retrievedStatus
 
-      if (feelingToday) {
-        const newStatus = {
-          feeling: status,
-          date: new Date(),
-        }
-        this.statuses.push(newStatus)
-        this.sortStatusByAscDate()
+      let _date = date ? date : new Date()
+      let selectedDate
+      if (time) {
+        const parsedTime = time.split(':')
+        selectedDate = new Date(_date)
+        selectedDate.setHours(Number(parsedTime[0]))
+        selectedDate.setMinutes(Number(parsedTime[1]))
       } else {
-        let _date = date ? date : new Date()
-        let selectedDate
-        if (time) {
-          const parsedTime = time.split(':')
-          selectedDate = new Date(_date)
-          selectedDate.setHours(Number(parsedTime[0]))
-          selectedDate.setMinutes(Number(parsedTime[1]))
-        } else {
-          _date = new Date(date)
-        }
-
-        const newStatus = {
-          feeling: status,
-          date: time ? selectedDate : _date,
-        }
-        this.statuses.push(newStatus)
-        this.sortStatusByAscDate()
+        _date = new Date(date)
       }
+
+      const newStatus = {
+        feeling: status,
+        date: time ? selectedDate : _date,
+      }
+      this.statuses.push(newStatus)
+      this.sortStatusByAscDate()
 
       // loading UI begin
       // push
