@@ -25,10 +25,10 @@
         <v-btn
           class="white--text"
           small
-          :color="action === 'edit' ? 'primary' : 'destructive'"
+          color="destructive"
           @click="closeModal()"
         >
-          {{ action === 'edit' ? 'Save' : 'Delete' }}
+          Delete
         </v-btn>
       </v-card-actions>
     </v-card>
