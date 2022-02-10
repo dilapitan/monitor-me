@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row class="pl-4">
-      <v-row>
+      <v-row no-gutters>
         <v-col cols="10" sm="12">
           <v-text-field
             v-model="status"
@@ -11,7 +11,7 @@
         </v-col>
       </v-row>
 
-      <v-row>
+      <v-row no-gutters>
         <v-col cols="10" sm="6">
           <v-dialog
             ref="dateDialog"
