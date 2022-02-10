@@ -14,7 +14,13 @@
             :dialog="dialog"
           />
         </template>
-        <template v-else> For Delete </template>
+        <template v-else>
+          <br />
+          <div class="subtitle-1">
+            Deleting will remove the status from the list. <br />
+            Do you wish to proceed?
+          </div>
+        </template>
       </v-card-text>
 
       <v-divider></v-divider>
