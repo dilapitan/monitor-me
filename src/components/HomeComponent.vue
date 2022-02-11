@@ -5,10 +5,11 @@
         <br />
         <FormComponent @setStatus="getSubmittedStatus" />
       </v-col>
-      <!-- <v-col sm="3">
+      <v-col sm="1"></v-col>
+      <v-col v-if="$vuetify.breakpoint.smAndUp" sm="3">
         <br /><br /><br />
-        <CalendarComponent />
-      </v-col> -->
+        Calendar here
+      </v-col>
     </v-row>
 
     <br />
@@ -81,6 +82,12 @@
             @closeModal="closeModal"
           />
         </v-container>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col cols="12" v-if="$vuetify.breakpoint.xsOnly">
+        Mobile Calendar
       </v-col>
     </v-row>
   </v-container>
