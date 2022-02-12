@@ -91,7 +91,9 @@
 
     <v-row>
       <v-col cols="12" v-if="$vuetify.breakpoint.xsOnly">
-        Mobile Calendar
+        <v-divider></v-divider>
+        <br />
+        <CalendarComponent />
       </v-col>
     </v-row>
   </v-container>
