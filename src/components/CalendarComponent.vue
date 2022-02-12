@@ -14,9 +14,25 @@
 <script>
 export default {
   name: 'Calendar',
+
+  props: {
+    statuses: {
+      type: Array,
+      required: true,
+    },
+  },
+
+  mounted() {
+    this.setStatuses()
+  },
+
+  watch: {
+    statuses() {
+      this.setStatuses()
+    },
+  },
+
   data() {
-    const month = new Date().getMonth()
-    const year = new Date().getFullYear()
     return {
       masks: {
         weekdays: 'WWW',
@@ -27,35 +43,31 @@ export default {
           highlight: true,
           dates: new Date(),
         },
-        {
-          key: 1,
-          dates: new Date(year, month, 2),
-          highlight: {
-            color: 'green',
-            fillMode: 'outline',
-          },
-          popover: {
-            label: 'Water Plants',
-            visibility: this.setVisibility(),
-          },
-        },
-        {
-          key: 2,
-          dates: new Date(year, month, 4),
-          highlight: {
-            color: 'green',
-            fillMode: 'outline',
-          },
-          popover: {
-            label: 'Read 30 pages',
-            visibility: this.setVisibility(),
-          },
-        },
       ],
     }
   },
 
   methods: {
+    setStatuses() {
+      const updatedStatuses = this.statuses.map((status) => {
+        status['dates'] = status.date
+
+        status['highlight'] = {
+          color: 'green',
+          fillMode: 'outline',
+        }
+
+        status['popover'] = {
+          label: status.feeling,
+          visibility: this.setVisibility(),
+        }
+
+        return status
+      })
+
+      this.attributes = [...this.attributes, ...updatedStatuses]
+    },
+
     setVisibility() {
       return this.$vuetify.breakpoint.name === 'xs' ? 'click' : 'hover'
     },

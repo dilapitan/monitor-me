@@ -85,7 +85,7 @@
 
       <v-col v-if="$vuetify.breakpoint.smAndUp" sm="5">
         <br /><br /><br />
-        <CalendarComponent />
+        <CalendarComponent :statuses="statuses" />
       </v-col>
     </v-row>
 
@@ -93,7 +93,7 @@
       <v-col cols="12" v-if="$vuetify.breakpoint.xsOnly">
         <v-divider></v-divider>
         <br />
-        <CalendarComponent />
+        <CalendarComponent :statuses="statuses" />
       </v-col>
     </v-row>
   </v-container>
@@ -119,36 +119,44 @@ export default {
     dialog: false,
     statuses: [
       {
+        key: 1,
         feeling: 'Having some colds',
-        date: new Date(2022, 0, 3, 8, 33, 30, 0),
+        date: new Date(2022, 1, 3, 8, 33, 30, 0),
       },
       {
+        key: 2,
         feeling: 'Having some chills',
-        date: new Date(2022, 0, 4, 10, 33, 30, 0),
+        date: new Date(2022, 1, 4, 10, 33, 30, 0),
       },
       {
+        key: 3,
         feeling: 'No taste and smell',
-        date: new Date(2022, 0, 5, 9, 33, 30, 0),
+        date: new Date(2022, 1, 5, 9, 33, 30, 0),
       },
       {
+        key: 4,
         feeling: 'Weakening of body',
-        date: new Date(2022, 0, 5, 10, 55, 30, 0),
+        date: new Date(2022, 1, 5, 10, 55, 30, 0),
       },
       {
+        key: 5,
         feeling: 'Having fever',
-        date: new Date(2022, 0, 6, 7, 50, 30, 0),
+        date: new Date(2022, 1, 6, 7, 50, 30, 0),
       },
       {
+        key: 6,
         feeling: 'Lowering of fever, having some taste and smell',
-        date: new Date(2022, 0, 7, 6, 33, 30, 0),
+        date: new Date(2022, 1, 7, 6, 33, 30, 0),
       },
       {
+        key: 7,
         feeling: 'No more fever, regaining strength',
-        date: new Date(2022, 0, 8, 9, 33, 30, 0),
+        date: new Date(2022, 1, 8, 9, 33, 30, 0),
       },
       {
+        key: 8,
         feeling: 'Feeling better',
-        date: new Date(2022, 0, 8, 15, 0, 30, 0),
+        date: new Date(2022, 1, 8, 15, 0, 30, 0),
       },
     ],
     modalData: null,
