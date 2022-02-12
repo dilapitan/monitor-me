@@ -3,85 +3,89 @@
     <v-row>
       <v-col cols="11" sm="6" md="5">
         <br />
-        <FormComponent @setStatus="getSubmittedStatus" />
-      </v-col>
-      <v-col sm="1"></v-col>
-      <v-col v-if="$vuetify.breakpoint.smAndUp" sm="3">
-        <br /><br /><br />
-        Calendar here
-      </v-col>
-    </v-row>
+        <v-row>
+          <v-col>
+            <FormComponent @setStatus="getSubmittedStatus" />
+          </v-col>
+        </v-row>
 
-    <br />
+        <v-row>
+          <v-col>
+            <h4 class="text-overline">
+              <v-icon> mdi-file-sign </v-icon>
+              List of Statuses
+            </h4>
 
-    <v-row>
-      <v-col sm="6">
-        <h4 class="text-overline">
-          <v-icon> mdi-file-sign </v-icon>
-          List of Statuses
-        </h4>
-
-        <br />
-
-        <div v-if="datesOnly.length === 0">
-          <br />
-          <p class="font-italic grey--text text-center">No statuses yet.</p>
-        </div>
-
-        <v-container v-else style="height: 400px" class="overflow-y-auto">
-          <div v-for="(date, index) in datesOnly" :key="index">
-            <div>
-              <span class="text-overline primary--text font-weight-bold">{{
-                date
-              }}</span>
-              <v-card
-                v-for="(status, index) in statuses"
-                :key="index"
-                class="mb-5"
-              >
-                <template v-if="standardizeDateFormat(status.date) === date">
-                  <v-card-title class="text-body-2">
-                    {{ status.feeling }}
-                  </v-card-title>
-
-                  <v-card-subtitle class="font-italic">
-                    {{ addTimeToDateFormat(status.date) }}
-                  </v-card-subtitle>
-
-                  <v-row class="pr-5">
-                    <v-spacer></v-spacer>
-                    <v-btn
-                      color="grey lighten-2"
-                      small
-                      icon
-                      class="mr-2"
-                      @click="openModal('edit', status)"
-                    >
-                      <v-icon>mdi-square-edit-outline</v-icon>
-                    </v-btn>
-
-                    <v-btn
-                      color="grey lighten-2"
-                      small
-                      icon
-                      @click="openModal('delete', status)"
-                    >
-                      <v-icon>mdi-delete</v-icon>
-                    </v-btn>
-                  </v-row>
-                </template>
-              </v-card>
+            <div v-if="datesOnly.length === 0">
+              <br />
+              <p class="font-italic grey--text text-center">No statuses yet.</p>
             </div>
-          </div>
-          <br />
 
-          <ModalComponent
-            :action="action"
-            :dialog="dialog"
-            :modalData="modalData"
-            @closeModal="closeModal"
-          />
-        </v-container>
+            <v-container v-else style="height: 400px" class="overflow-y-auto">
+              <div v-for="(date, index) in datesOnly" :key="index">
+                <div>
+                  <span class="text-overline primary--text font-weight-bold">{{
+                    date
+                  }}</span>
+                  <v-card
+                    v-for="(status, index) in statuses"
+                    :key="index"
+                    class="mb-5"
+                  >
+                    <template
+                      v-if="standardizeDateFormat(status.date) === date"
+                    >
+                      <v-card-title class="text-body-2">
+                        {{ status.feeling }}
+                      </v-card-title>
+
+                      <v-card-subtitle class="font-italic">
+                        {{ addTimeToDateFormat(status.date) }}
+                      </v-card-subtitle>
+
+                      <v-row class="pr-5">
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          color="grey lighten-2"
+                          small
+                          icon
+                          class="mr-2"
+                          @click="openModal('edit', status)"
+                        >
+                          <v-icon>mdi-square-edit-outline</v-icon>
+                        </v-btn>
+
+                        <v-btn
+                          color="grey lighten-2"
+                          small
+                          icon
+                          @click="openModal('delete', status)"
+                        >
+                          <v-icon>mdi-delete</v-icon>
+                        </v-btn>
+                      </v-row>
+                    </template>
+                  </v-card>
+                </div>
+              </div>
+              <br />
+
+              <ModalComponent
+                :action="action"
+                :dialog="dialog"
+                :modalData="modalData"
+                @closeModal="closeModal"
+              />
+            </v-container>
+          </v-col>
+        </v-row>
+      </v-col>
+
+      <v-col sm="1"></v-col>
+
+      <v-col v-if="$vuetify.breakpoint.smAndUp" sm="5">
+        <br /><br /><br />
+        <CalendarComponent />
       </v-col>
     </v-row>
 
@@ -94,7 +98,7 @@
 </template>
 
 <script>
-// import CalendarComponent from '@/components/CalendarComponent'
+import CalendarComponent from '@/components/CalendarComponent'
 import FormComponent from '@/components/shared/FormComponent'
 import ModalComponent from '@/components/shared/ModalComponent'
 import { format } from 'date-fns'
@@ -103,7 +107,7 @@ export default {
   name: 'Home',
 
   components: {
-    // CalendarComponent,
+    CalendarComponent,
     FormComponent,
     ModalComponent,
   },
