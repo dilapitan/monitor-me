@@ -1,15 +1,17 @@
 <template>
-  <v-calendar
-    ref="calendar"
-    v-model="value"
-    :weekdays="weekday"
-    :type="type"
-    :events="events"
-    :event-overlap-mode="mode"
-    :event-overlap-threshold="30"
-    :event-color="getEventColor"
-    @change="getEvents"
-  ></v-calendar>
+  <div height="300">
+    <v-calendar
+      ref="calendar"
+      v-model="value"
+      :weekdays="weekday"
+      :type="type"
+      :events="events"
+      :event-overlap-mode="mode"
+      :event-overlap-threshold="30"
+      :event-color="getEventColor"
+      @change="getEvents"
+    ></v-calendar>
+  </div>
 </template>
 
 <script>
