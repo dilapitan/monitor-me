@@ -1,11 +1,13 @@
 <template>
   <v-app>
-    <v-toolbar dark>
-      <v-toolbar-title>Monitor Me</v-toolbar-title>
-    </v-toolbar>
+    <v-app-bar app dark>
+      <v-toolbar-title>
+        <strong>Monitor Me</strong>
+      </v-toolbar-title>
+    </v-app-bar>
 
-    <div id="app">
+    <v-main>
       <router-view />
-    </div>
+    </v-main>
   </v-app>
 </template>
